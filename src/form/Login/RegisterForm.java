@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package form;
+package form.Login;
 
 import DAO.UserDAO;
 import DAO.AdminCodeDAO;
@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author dwife
- * dwi
+ * 
  */
 public class RegisterForm extends javax.swing.JFrame {
 
@@ -642,6 +642,8 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
+
+
 
 
 

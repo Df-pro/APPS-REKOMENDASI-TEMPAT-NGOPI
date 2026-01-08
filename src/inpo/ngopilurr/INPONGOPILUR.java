@@ -4,7 +4,8 @@
  */
 package inpo.ngopilurr; // atau package nipongoplurr;
 
-import form.LoginForm;
+import form.Admin.DashboardAdmin;
+import form.Login.LoginForm;
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,6 +35,11 @@ public class INPONGOPILUR extends JFrame {
     }
     
     public static void main(String[] args) {
+        
+       DashboardAdmin da = new DashboardAdmin();
+       da.setLocationRelativeTo(null);
+       da.setVisible(true);
+        
         try {
             // Set look and feel
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

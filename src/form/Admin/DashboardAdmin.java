@@ -4,6 +4,7 @@
  */
 package form.Admin;
 
+import Model.User;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
@@ -14,24 +15,53 @@ import javax.swing.ImageIcon;
 public class DashboardAdmin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardAdmin.class.getName());
+    private User currentUser;
 
     /**
      * Creates new form DashboardAdmin
      */
-    Color DefaultColor,ClikedColor;
+    Color DefaultColor, ClikedColor;
     
+
+    public DashboardAdmin(User user) {
+        initComponents();
+        this.currentUser = user;
+        
+
+        String welcomeMessage = "SELAMAT DATANG " + user.getUsername().toUpperCase() + " - ADMIN XSIRI COFFEE SHOP";
+        jLabel1.setText(welcomeMessage);
+        
+        DefaultColor = new Color(9,64,49);
+        ClikedColor = new Color (252,208,89);
+        
+ 
+        pCreate.setBackground(DefaultColor);
+        pEdit.setBackground(DefaultColor);
+        pInformation.setBackground(DefaultColor);
+        
+
+        logger.info("Admin dashboard opened for user: " + user.getUsername());
+    }
+    
+
     public DashboardAdmin() {
         initComponents();
         
         DefaultColor = new Color(9,64,49);
         ClikedColor = new Color (252,208,89);
         
-        //set bacground color
+        //set background color
         pCreate.setBackground(DefaultColor);
         pEdit.setBackground(DefaultColor);
         pInformation.setBackground(DefaultColor);
         
-        
+        // Default welcome message
+        jLabel1.setText("SELAMAT DATANG ADMIN - XSIRI COFFEE SHOP");
+    }
+
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     /**

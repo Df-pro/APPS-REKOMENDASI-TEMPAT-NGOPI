@@ -5,6 +5,7 @@
 package form.Login;
 import DAO.UserDAO;
 import Model.User;
+import form.Admin.DashboardAdmin;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.prefs.Preferences;
@@ -161,17 +162,22 @@ public class LoginForm extends javax.swing.JFrame {
     private void redirectToDashboard(User user) {
         try {
             if (user.isAdmin()) {
-                AdminDashboard adminDash = new AdminDashboard(user);
+
+                DashboardAdmin adminDash = new DashboardAdmin(user);
                 adminDash.setVisible(true);
             } else {
-                UserDashboard userDash = new UserDashboard(user);
-                userDash.setVisible(true);
+
+                JOptionPane.showMessageDialog(this,
+                    "User dashboard not implemented yet",
+                    "Info",
+                    JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                 "Error opening dashboard: " + e.getMessage(),
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
     

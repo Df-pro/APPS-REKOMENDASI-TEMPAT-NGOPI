@@ -10,52 +10,41 @@ import java.awt.*;
 /**
  *
  * @author dwife
+ * 
+ * 
+ * 
  */
+
+
+                   // ======= INI BOLEH DI HAPUS INI CODE UNTUK TESTING LOGIN USER DOANG =====
+
+
 public class UserDashboard extends javax.swing.JFrame {
 
-
-    private User currentUser;
-    
-
+    // Konstruktor dengan parameter User
     public UserDashboard(User user) {
-        this.currentUser = user;
         initComponents();
-        setUserInfo();
+        setTitle("User Dashboard - Welcome, " + user.getUsername());
+        
+        // Atur ukuran dan posisi
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
-    
-    private void setUserInfo() {
-        if (currentUser != null) {
-            Component[] components = getContentPane().getComponents();
-            for (Component comp : components) {
-                if (comp instanceof JPanel) {
-                    Component[] subComps = ((JPanel) comp).getComponents();
-                    for (Component subComp : subComps) {
-                        if (subComp instanceof JLabel && 
-                            ((JLabel) subComp).getName() != null && 
-                            ((JLabel) subComp).getName().equals("lblUserInfo")) {
-                            ((JLabel) subComp).setText(
-                                "User: " + currentUser.getUsername()
-                            );
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    
-    
-    
     
     /**
      * Creates new form UserDashboard
      */
     public UserDashboard() {
         initComponents();
+        setTitle("User Dashboard");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

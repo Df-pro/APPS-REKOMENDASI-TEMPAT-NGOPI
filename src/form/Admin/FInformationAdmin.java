@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author syafi
+ * @author dwife
  */
 public class FInformationAdmin extends javax.swing.JInternalFrame {
     

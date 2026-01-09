@@ -31,7 +31,6 @@ public class AuthService {
         currentUser = null;
         userDatabase = new HashMap<>();
         
-        // Inisialisasi data dummy
         userDatabase.put("admin", new User(1, "admin", "admin123", true));
         userDatabase.put("user1", new User(2, "user1", "user123", false));
         userDatabase.put("user2", new User(3, "user2", "password", false));

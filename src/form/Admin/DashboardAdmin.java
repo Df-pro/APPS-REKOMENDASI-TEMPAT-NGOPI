@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author syafi
+ * @author dwife
  */
 public class DashboardAdmin extends javax.swing.JFrame {
     

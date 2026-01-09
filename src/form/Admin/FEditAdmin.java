@@ -17,7 +17,7 @@ import javax.swing.table.TableRowSorter;
 
 /**
  *
- * @author syafi
+ * @author dwife
  */
 public class FEditAdmin extends javax.swing.JInternalFrame {
     

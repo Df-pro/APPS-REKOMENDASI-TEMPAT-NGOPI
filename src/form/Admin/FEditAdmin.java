@@ -23,10 +23,7 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
     
     AdminCodeDAO adao = new AdminCodeDAO ();
     TableRowSorter<TableModel> sorter;
-    
-    /**
-     * Creates new form FEditAdmin
-     */
+
     public FEditAdmin() {
         initComponents();
         loadData();
@@ -46,7 +43,7 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
         tableCaffe.setModel(model);
         for (Caffe cf : list){
             model.addRow(new Object[]{
-                cf.getIdCaffe(),
+                cf.getId(),
                 cf.getKategori(),
                 cf.getDaerah(),
                 cf.getNamaCaffe(),

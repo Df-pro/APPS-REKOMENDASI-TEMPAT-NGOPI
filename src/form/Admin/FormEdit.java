@@ -19,9 +19,7 @@ public class FormEdit extends javax.swing.JFrame {
     private Integer id;
     private FEditAdmin parent;
     private AdminCodeDAO adao = new AdminCodeDAO();
-    /**
-     * Creates new form FormEdit
-     */
+
     public FormEdit(FEditAdmin parent, Integer id) {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -230,7 +228,7 @@ public class FormEdit extends javax.swing.JFrame {
         if (id == null){
             sukses = adao.insert(cf);
         }else{
-            cf.setIdCaffe(id);
+            cf.setId(id);
             sukses = adao.insert(cf);
         }
 

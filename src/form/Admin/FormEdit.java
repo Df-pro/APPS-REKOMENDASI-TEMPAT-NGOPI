@@ -464,3 +464,5 @@ public class FormEdit extends javax.swing.JFrame {
     private javax.swing.JLabel txtUnggahFoto;
     // End of variables declaration//GEN-END:variables
 }
+
+

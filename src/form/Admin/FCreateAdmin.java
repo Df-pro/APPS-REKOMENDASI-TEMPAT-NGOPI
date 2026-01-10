@@ -466,3 +466,5 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtUnggahFoto;
     // End of variables declaration//GEN-END:variables
 }
+
+

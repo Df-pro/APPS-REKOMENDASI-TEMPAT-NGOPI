@@ -50,49 +50,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtDaerah" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtKategori" min="-2" pref="74" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="txtNama" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtDeskripsi" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                              <Component id="txtAlamat" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
-                              <Component id="txtLinkMaps" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtFKategori" pref="498" max="32767" attributes="0"/>
-                      <Component id="txtFDaerah" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtFNama" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtFDeskripsi" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtFAlamat" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtFLinkMaps" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
-                  <Component id="txtUnggahFoto" min="-2" pref="102" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lib_gambar" min="-2" pref="178" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="t_imagePath" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnGambar" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -107,6 +64,46 @@
                       </Group>
                   </Group>
                   <EmptySpace pref="458" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtDaerah" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="txtKategori" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="txtNama" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                  <Component id="txtDeskripsi" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                                  <Component id="txtAlamat" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
+                                  <Component id="txtLinkMaps" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtFKategori" pref="498" max="32767" attributes="0"/>
+                              <Component id="txtFDaerah" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtFNama" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtFDeskripsi" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtFAlamat" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtFLinkMaps" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
+                          <Component id="txtUnggahFoto" min="-2" pref="102" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lib_gambar" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="t_imagePath" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnGambar" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>

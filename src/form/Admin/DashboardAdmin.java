@@ -45,7 +45,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     public DashboardAdmin() {
         initComponents();
-        
+
         DefaultColor = new Color(9,64,49);
         ClikedColor = new Color (252,208,89);
         
@@ -116,7 +116,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtMenu1.setFocusable(false);
 
-        tutup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Close.png"))); // NOI18N
+        tutup.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Close.png")); // NOI18N
         tutup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tutup.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,7 +125,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\Project_UAS\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Menu.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Menu.png")); // NOI18N
         jLabel4.setText("l");
 
         txtMenuName.setBackground(new java.awt.Color(9, 64, 49));
@@ -207,7 +207,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtEdit.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtEdit.setForeground(new java.awt.Color(255, 255, 255));
         txtEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtEdit.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\Project_UAS\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Edit.png")); // NOI18N
+        txtEdit.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Edit.png")); // NOI18N
         txtEdit.setText("Edit & Delete");
         txtEdit.setFocusable(false);
 
@@ -241,7 +241,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtCreate2.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtCreate2.setForeground(new java.awt.Color(255, 255, 255));
         txtCreate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtCreate2.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\Project_UAS\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Plus.png")); // NOI18N
+        txtCreate2.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Plus.png")); // NOI18N
         txtCreate2.setText("Create");
         txtCreate2.setFocusable(false);
         txtCreate2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +279,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtdelete.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtdelete.setForeground(new java.awt.Color(255, 255, 255));
         txtdelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtdelete.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\Project_UAS\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Info.png")); // NOI18N
+        txtdelete.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Info.png")); // NOI18N
         txtdelete.setText("Informasion");
         txtdelete.setFocusable(false);
 
@@ -300,7 +300,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         );
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\Project_UAS\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Profile_1.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Profile_1.png")); // NOI18N
         jLabel2.setText("l");
 
         txtUserName.setBackground(new java.awt.Color(9, 64, 49));

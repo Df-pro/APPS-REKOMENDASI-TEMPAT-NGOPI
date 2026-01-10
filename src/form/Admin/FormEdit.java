@@ -31,6 +31,8 @@ public class FormEdit extends javax.swing.JFrame {
 
     public FormEdit(FEditAdmin parent, Integer id) {
         initComponents();
+           // ini code buat ful layar 
+          this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.parent = parent;
         this.id = id;

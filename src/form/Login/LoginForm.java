@@ -22,7 +22,13 @@ public class LoginForm extends javax.swing.JFrame {
     private Preferences prefs;
     
     public LoginForm() {
+        
+        
         initComponents();
+        // ini code buat ful layar otomatis 
+       this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        
         setLocationRelativeTo(null);
         setTitle("Xsiri Coffee Shop - Login");
         
@@ -338,9 +344,9 @@ public class LoginForm extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2))
                                 .addGap(120, 120, 120)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                                    .addComponent(txtPassword)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnRegister)
                                 .addGap(264, 264, 264)

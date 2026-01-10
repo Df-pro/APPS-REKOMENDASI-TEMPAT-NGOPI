@@ -22,6 +22,7 @@ public class FInformationAdmin extends javax.swing.JInternalFrame {
      */
     public FInformationAdmin() {
         initComponents();
+        
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
         ui.setNorthPane(null);

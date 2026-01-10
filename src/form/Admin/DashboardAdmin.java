@@ -7,6 +7,7 @@ package form.Admin;
 import Model.User;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -45,6 +46,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     public DashboardAdmin() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         DefaultColor = new Color(9,64,49);
         ClikedColor = new Color (252,208,89);
@@ -116,7 +118,6 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtMenu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtMenu1.setFocusable(false);
 
-        tutup.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Close.png")); // NOI18N
         tutup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         tutup.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,13 +126,13 @@ public class DashboardAdmin extends javax.swing.JFrame {
         });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Menu.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Menu.png"))); // NOI18N
         jLabel4.setText("l");
 
         txtMenuName.setBackground(new java.awt.Color(9, 64, 49));
         txtMenuName.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtMenuName.setForeground(new java.awt.Color(255, 255, 255));
-        txtMenuName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtMenuName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtMenuName.setText("Menu");
         txtMenuName.setFocusable(false);
 
@@ -141,17 +142,20 @@ public class DashboardAdmin extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDetailMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMenu1)
-                        .addGap(272, 272, 272)
-                        .addComponent(jLabel3))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDetailMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtMenuName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(129, 129, 129)
+                                .addComponent(txtMenu1)
+                                .addGap(272, 272, 272)
+                                .addComponent(jLabel3)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 516, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(close)
@@ -159,11 +163,6 @@ public class DashboardAdmin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(tutup)
                         .addContainerGap())))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(72, 72, 72)
-                    .addComponent(txtMenuName)
-                    .addContainerGap(982, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,25 +170,23 @@ public class DashboardAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(close)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(59, 59, 59)
                         .addComponent(tutup))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDetailMenu)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtDetailMenu)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(txtMenu1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(50, Short.MAX_VALUE)
-                    .addComponent(txtMenuName)
-                    .addGap(22, 22, 22)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(txtMenuName)))))))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(9, 64, 49));
@@ -207,7 +204,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtEdit.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtEdit.setForeground(new java.awt.Color(255, 255, 255));
         txtEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtEdit.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Edit.png")); // NOI18N
+        txtEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
         txtEdit.setText("Edit & Delete");
         txtEdit.setFocusable(false);
 
@@ -241,7 +238,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtCreate2.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtCreate2.setForeground(new java.awt.Color(255, 255, 255));
         txtCreate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtCreate2.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Plus.png")); // NOI18N
+        txtCreate2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Plus.png"))); // NOI18N
         txtCreate2.setText("Create");
         txtCreate2.setFocusable(false);
         txtCreate2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +276,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         txtdelete.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtdelete.setForeground(new java.awt.Color(255, 255, 255));
         txtdelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtdelete.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Info.png")); // NOI18N
+        txtdelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Info.png"))); // NOI18N
         txtdelete.setText("Informasion");
         txtdelete.setFocusable(false);
 
@@ -300,7 +297,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         );
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Profile_1.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Profile_1.png"))); // NOI18N
         jLabel2.setText("l");
 
         txtUserName.setBackground(new java.awt.Color(9, 64, 49));
@@ -349,7 +346,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 865, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,8 +363,9 @@ public class DashboardAdmin extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDesktopPane1)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -35,11 +35,6 @@ public class INPONGOPILUR extends JFrame {
     }
     
     public static void main(String[] args) {
-        
-       DashboardAdmin da = new DashboardAdmin();
-       da.setLocationRelativeTo(null);
-       da.setVisible(true);
-        
         try {
             // Set look and feel
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -51,5 +46,10 @@ public class INPONGOPILUR extends JFrame {
         SwingUtilities.invokeLater(() -> {
             new INPONGOPILUR().setVisible(true);
         });
+        
+        
+       DashboardAdmin da = new DashboardAdmin();
+       da.setLocationRelativeTo(null);
+       da.setVisible(true);
     }
 }

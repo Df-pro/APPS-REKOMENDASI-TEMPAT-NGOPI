@@ -6,8 +6,15 @@ package form.Admin;
 import DAO.AdminCodeDAO;
 import form.Admin.DashboardAdmin;
 import Model.Caffe;  
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author syafi
@@ -19,6 +26,8 @@ public class FormEdit extends javax.swing.JFrame {
     private Integer id;
     private FEditAdmin parent;
     private AdminCodeDAO adao = new AdminCodeDAO();
+    String path2 = null;
+    private byte[] imageBytes = null;
 
     public FormEdit(FEditAdmin parent, Integer id) {
         initComponents();
@@ -70,6 +79,9 @@ public class FormEdit extends javax.swing.JFrame {
         txtUnggahFoto = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
+        lib_gambar = new javax.swing.JLabel();
+        t_imagePath = new javax.swing.JTextField();
+        btnGambar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +130,13 @@ public class FormEdit extends javax.swing.JFrame {
         btnBatal.setText("Batal");
         btnBatal.addActionListener(this::btnBatalActionPerformed);
 
+        lib_gambar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        t_imagePath.addActionListener(this::t_imagePathActionPerformed);
+
+        btnGambar.setText("jButton1");
+        btnGambar.addActionListener(this::btnGambarActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,60 +146,77 @@ public class FormEdit extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(314, 314, 314))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLinkMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtFAlamat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                            .addComponent(txtFDeskripsi, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFNama, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFDaerah, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFKategori, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFLinkMaps))
-                        .addGap(65, 65, 65)
-                        .addComponent(txtUnggahFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(162, 162, 162)
+                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLinkMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtFAlamat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(txtFDeskripsi, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFNama, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFDaerah, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFKategori, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFLinkMaps))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(95, 95, 95))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtUnggahFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(126, 126, 126))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtUnggahFoto)
-                .addGap(11, 11, 11)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtKategori)
-                    .addComponent(txtFKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDaerah)
-                    .addComponent(txtFDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNama)
-                    .addComponent(txtFNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDeskripsi)
-                    .addComponent(txtFDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAlamat)
-                    .addComponent(txtFAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUnggahFoto))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDaerah)
+                            .addComponent(txtFDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNama)
+                            .addComponent(txtFNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDeskripsi)
+                            .addComponent(txtFDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtAlamat)
+                            .addComponent(txtFAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLinkMaps)
@@ -189,7 +225,7 @@ public class FormEdit extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,31 +252,88 @@ public class FormEdit extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        Caffe cf = new Caffe();
-        cf.setKategori(txtFKategori.getText());
-        cf.setDaerah(txtFDaerah.getText());
-        cf.setNamaCaffe(txtFNama.getText());
-        cf.setDeskripsi(txtFDeskripsi.getText());
-        cf.setAlamat(txtFAlamat.getText());
-        cf.setLinkMaps(txtLinkMaps.getText());
-
-        boolean sukses;
-        if (id == null){
-            sukses = adao.insert(cf);
-        }else{
-            cf.setId(id);
-            sukses = adao.insert(cf);
+        if (txtFKategori.getText().trim().isEmpty() ||
+            txtFDaerah.getText().trim().isEmpty() ||
+            txtFNama.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Kategori, Daerah, dan Nama harus diisi!", 
+                "Validasi Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        if (sukses){
-            JOptionPane.showMessageDialog(this, "Data Berhasil disimpan!");
-            parent.loadData();
-            dispose();
-        }else {
-            JOptionPane.showMessageDialog(this, "Gagal menyimpan!");
+        try {
+            Caffe cf = new Caffe();
+            cf.setKategori(txtFKategori.getText());
+            cf.setDaerah(txtFDaerah.getText());
+            cf.setNamaCaffe(txtFNama.getText());
+            cf.setDeskripsi(txtFDeskripsi.getText());
+            cf.setAlamat(txtFAlamat.getText());
+            cf.setLinkMaps(txtFLinkMaps.getText());
+
+       
+            if (imageBytes != null && imageBytes.length > 0) {
+              
+                cf.setGambarStream(new java.io.ByteArrayInputStream(imageBytes));
+            } else if (t_imagePath.getText() != null && !t_imagePath.getText().trim().isEmpty()) {
+           
+                File file = new File(t_imagePath.getText());
+                if (file.exists() && file.canRead()) {
+                    cf.setImagePath(t_imagePath.getText());
+                }
+            }
+
+            boolean sukses;
+
+            if (id == null) {
+             
+                sukses = adao.insert(cf);
+            } else {
+           
+                cf.setId(id);
+                sukses = adao.update(cf);
+            }
+
+            if (sukses) {
+           
+                resetForm();
+
+                JOptionPane.showMessageDialog(this, 
+                    id == null ? "Data berhasil disimpan!" : "Data berhasil diupdate!");
+
+                if (parent != null) {
+                    parent.loadData();
+                }
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Gagal menyimpan data! Periksa koneksi database atau ukuran file.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, 
+                "Terjadi kesalahan: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
-
+    
+    private void resetForm() {
+        txtFKategori.setText("");
+        txtFDaerah.setText("");
+        txtFNama.setText("");
+        txtFDeskripsi.setText("");
+        txtFAlamat.setText("");
+        txtFLinkMaps.setText("");
+        t_imagePath.setText("");
+        lib_gambar.setIcon(null);
+        lib_gambar.setText("No Image");
+        path2 = null;
+        imageBytes = null;
+        id = null;
+         
+    }                                         
+    
+    
     private void txtFLinkMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFLinkMapsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFLinkMapsActionPerformed
@@ -264,6 +357,63 @@ public class FormEdit extends javax.swing.JFrame {
     private void txtFKategoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFKategoriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFKategoriActionPerformed
+
+    private void t_imagePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_imagePathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_imagePathActionPerformed
+
+    private void btnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGambarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "jpeg", "gif", "png");
+    fileChooser.addChoosableFileFilter(filter);
+    int result = fileChooser.showOpenDialog(this);
+    
+    if(result == JFileChooser.APPROVE_OPTION){
+        File selectedFile = fileChooser.getSelectedFile();
+        String path = selectedFile.getAbsolutePath();
+        t_imagePath.setText(path);
+       
+        try {
+
+            imageBytes = Files.readAllBytes(selectedFile.toPath());
+            
+    
+            if (imageBytes.length > 16 * 1024 * 1024) {
+                JOptionPane.showMessageDialog(this, 
+                    "File terlalu besar! Maksimal 16MB. Ukuran file: " + 
+                    (imageBytes.length / (1024 * 1024)) + "MB");
+                imageBytes = null;
+                return;
+            }
+
+            ImageIcon imageIcon = new ImageIcon(imageBytes);
+            
+
+            int labelWidth = lib_gambar.getWidth();
+            int labelHeight = lib_gambar.getHeight();
+            
+            if (labelWidth <= 0) labelWidth = 178;
+            if (labelHeight <= 0) labelHeight = 177;
+            
+  
+            Image scaledImage = imageIcon.getImage().getScaledInstance(
+                labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            
+            lib_gambar.setIcon(new ImageIcon(scaledImage));
+            path2 = path;
+            
+        } catch (IOException ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error membaca file: " + ex.getMessage());
+            imageBytes = null;
+        } catch (OutOfMemoryError e) {
+            JOptionPane.showMessageDialog(this, "File terlalu besar untuk diproses!");
+            imageBytes = null;
+        }
+     }
+    }//GEN-LAST:event_btnGambarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,9 +441,12 @@ public class FormEdit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
+    private javax.swing.JButton btnGambar;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lib_gambar;
+    private javax.swing.JTextField t_imagePath;
     private javax.swing.JLabel txtAlamat;
     private javax.swing.JLabel txtDaerah;
     private javax.swing.JLabel txtDeskripsi;

@@ -20,7 +20,6 @@ import javax.swing.table.TableRowSorter;
  * @author dwife
  */
 public class FEditAdmin extends javax.swing.JInternalFrame {
-    
     AdminCodeDAO adao = new AdminCodeDAO ();
     TableRowSorter<TableModel> sorter;
 
@@ -32,6 +31,7 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         
     }
+    
     
     
     public void loadData(){

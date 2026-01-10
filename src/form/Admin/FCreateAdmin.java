@@ -47,6 +47,18 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         
     }
+    
+    public FCreateAdmin(FEditAdmin parent, Integer id) {
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.parent = parent;
+        this.id = id;
+        if(id != null){
+            setTitle("Ubah caffe");
+            loadData();
+        }
+    }
+    
     private void loadData() {
         Caffe cf = adao.getById(id);
         if (cf != null){
@@ -89,6 +101,8 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         lib_gambar = new javax.swing.JLabel();
         btnGambar = new javax.swing.JButton();
         t_imagePath = new javax.swing.JTextField();
+
+        setPreferredSize(new java.awt.Dimension(856, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(782, 614));
@@ -178,7 +192,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
                             .addComponent(txtFDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                             .addComponent(txtFAlamat, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFLinkMaps))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addComponent(txtUnggahFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(113, 113, 113))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -249,7 +263,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -368,6 +382,8 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
          
     }//GEN-LAST:event_btnSimpanActionPerformed
     private byte[] imageBytes = null;
+    
+    
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
         dispose();

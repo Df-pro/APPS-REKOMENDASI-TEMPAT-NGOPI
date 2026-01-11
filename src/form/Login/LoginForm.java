@@ -172,12 +172,11 @@ public class LoginForm extends javax.swing.JFrame {
 
                 DashboardAdmin adminDash = new DashboardAdmin(user);
                 adminDash.setVisible(true);
+                this.dispose();
             } else {
-
-                JOptionPane.showMessageDialog(this,
-                    "User dashboard not implemented yet",
-                    "Info",
-                    JOptionPane.INFORMATION_MESSAGE);
+                user_dashboard userdash = new user_dashboard();
+                userdash.setVisible(true);
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -428,9 +427,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        user_dashboard dashboard = new user_dashboard();
-        dashboard.setVisible(true);
-        this.dispose();
+        loginUser();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed

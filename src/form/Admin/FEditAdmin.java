@@ -216,20 +216,21 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
             return;
         }   
         
+        
 
         FCreateAdmin fEdit = new FCreateAdmin(this, id);
         if (this.getParent() instanceof JDesktopPane) {
             JDesktopPane desktop = (JDesktopPane) this.getParent();
             desktop.add(fEdit);
-            fEdit.setVisible(true);
-            fEdit.toFront();
-            
-
             java.awt.Dimension desktopSize = desktop.getSize();
             java.awt.Dimension frameSize = fEdit.getSize();
-            fEdit.setLocation((desktopSize.width - frameSize.width)/2, 
+            fEdit.setLocation((desktopSize.width - frameSize.width)/3, 
                               (desktopSize.height - frameSize.height)/2);
-        } else {
+            fEdit.setVisible(true);
+            //fEdit.toFront();
+            
+        } 
+        else {
      
             fEdit.setVisible(true);
         }

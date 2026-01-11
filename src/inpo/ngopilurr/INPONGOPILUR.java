@@ -13,6 +13,7 @@ public class INPONGOPILUR {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /*
         // 1. Setup Tampilan (Agar tombol-tombol terlihat modern sesuai OS)
         try {
             // Opsi 1: Pakai Nimbus (Tampilan Modern Java)
@@ -40,6 +41,7 @@ public class INPONGOPILUR {
             
             // Tampilkan
             login.setVisible(true);
-        });
-    }
+        });*/
+    } 
+        
 }

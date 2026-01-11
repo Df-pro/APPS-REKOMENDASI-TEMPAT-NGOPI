@@ -48,7 +48,7 @@ public class CoffeShopDAO {
         }
     }
 
-
+   
     public List<Caffe> getAll() {
         List<Caffe> list = new ArrayList<>();
 

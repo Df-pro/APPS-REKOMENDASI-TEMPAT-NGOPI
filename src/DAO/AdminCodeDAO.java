@@ -75,7 +75,7 @@ public class AdminCodeDAO extends CoffeShopDAO {
         return list;
     }
 
-
+    @Override
     public byte[] getImageBytesById(int id) {
         String sql = "SELECT idPicture FROM Caffe WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();

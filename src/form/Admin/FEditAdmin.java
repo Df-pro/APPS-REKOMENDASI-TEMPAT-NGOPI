@@ -4,14 +4,16 @@
  */
 package form.Admin;
 
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import DAO.AdminCodeDAO;
 import Model.Caffe;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -20,54 +22,78 @@ import javax.swing.table.TableRowSorter;
  * @author dwife
  */
 public class FEditAdmin extends javax.swing.JInternalFrame {
-    AdminCodeDAO adao = new AdminCodeDAO ();
-    TableRowSorter<TableModel> sorter;
+    
+    private AdminCodeDAO adao = new AdminCodeDAO();
+    private TableRowSorter<TableModel> sorter;
 
     public FEditAdmin() {
         initComponents();
+        setupUI();
         loadData();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-        
     }
     
-    
+    private void setupUI() {
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI();
+        ui.setNorthPane(null);
+    }
     
     public void loadData(){
-        List<Caffe>list = adao.getAll();
-        DefaultTableModel model = new DefaultTableModel(
-            new Object[]{"id", "kategori", "daerah","namaCaffe", "deskripsi", "alamat", "linkMaps","idPicture"}, 0
-        );
+        List<Caffe> list = adao.getAll();
+        String[] header = {"No", "ID System", "Kategori", "Daerah", "Nama Caffe", "Deskripsi", "Alamat", "Link Maps"};
         
-        tableCaffe.setModel(model);
+        DefaultTableModel model = new DefaultTableModel(null, header) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+
+        int noUrut = 1; 
         for (Caffe cf : list){
             model.addRow(new Object[]{
-                cf.getId(),
+                noUrut++,        
+                
+                cf.getId(),      
                 cf.getKategori(),
                 cf.getDaerah(),
                 cf.getNamaCaffe(),
                 cf.getDeskripsi(),
                 cf.getAlamat(),
-                cf.getLinkMaps(),
-                cf.getImagePath()
-                
+                cf.getLinkMaps()
             });
         }
-        tableCaffe.setModel(model);
-        sorter = new TableRowSorter<TableModel>(model);
-        tableCaffe.setRowSorter(sorter);
         
+        tableCaffe.setModel(model);
+        
+       
+        sorter = new TableRowSorter<>(model);
+        tableCaffe.setRowSorter(sorter);
+        TableColumnModel tcm = tableCaffe.getColumnModel();
+        
+ 
+        tcm.getColumn(1).setMinWidth(0);
+        tcm.getColumn(1).setMaxWidth(0);
+        tcm.getColumn(1).setWidth(0);
+        tcm.getColumn(1).setPreferredWidth(0);
+        
+        tcm.getColumn(0).setPreferredWidth(40);
+        tcm.getColumn(0).setMaxWidth(50);
     }
     
     private Integer getSelectedId() {
-        int row = tableCaffe.getSelectedRow();
-        if (row == -1)
-        return null;
+        int viewRow = tableCaffe.getSelectedRow();
+        if (viewRow == -1) return null;
         
-        return Integer.valueOf(tableCaffe.getValueAt(row,0).toString());
-    }
 
+        int modelRow = tableCaffe.convertRowIndexToModel(viewRow);
+        return Integer.valueOf(tableCaffe.getModel().getValueAt(modelRow, 1).toString());
+    }
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,14 +122,14 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
 
         tableCaffe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Kategori", "Daerah", "Nama ", "Deskripsi", "Alamat", "LinkMaps", "Picture"
+                "Kategori", "Daerah", "Nama ", "Deskripsi", "Alamat", "LinkMaps"
             }
         ));
         jScrollPane1.setViewportView(tableCaffe);
@@ -125,39 +151,35 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(347, 347, 347))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addComponent(btnSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(btnRefresh)
-                .addGap(156, 156, 156))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(329, 329, 329)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addComponent(btnSearch)
+                        .addGap(57, 57, 57)
+                        .addComponent(btnRefresh)))
+                .addContainerGap(233, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch)
+                    .addComponent(btnRefresh))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
@@ -190,42 +212,70 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Integer id = getSelectedId();
         if (id == null){
-            JOptionPane.showMessageDialog(this,"Pilih Data dulu!");
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin diedit terlebih dahulu!");
             return;
         }   
-        FormEdit fe=new FormEdit (this, id);
-        fe.setLocationRelativeTo(this);
-        fe.setVisible(true);
+        
+
+        FCreateAdmin fEdit = new FCreateAdmin(this, id);
+        if (this.getParent() instanceof JDesktopPane) {
+            JDesktopPane desktop = (JDesktopPane) this.getParent();
+            desktop.add(fEdit);
+            fEdit.setVisible(true);
+            fEdit.toFront();
+            
+
+            java.awt.Dimension desktopSize = desktop.getSize();
+            java.awt.Dimension frameSize = fEdit.getSize();
+            fEdit.setLocation((desktopSize.width - frameSize.width)/2, 
+                              (desktopSize.height - frameSize.height)/2);
+        } else {
+     
+            fEdit.setVisible(true);
+        }
+    
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         Integer id = getSelectedId();
         if (id == null){
-            JOptionPane.showMessageDialog(this,"Pilih Data dulu!");
+            JOptionPane.showMessageDialog(this, "Pilih data yang ingin dihapus!");
             return;
         }
-        if (JOptionPane.showConfirmDialog(
-            this, "Yakin nih mau lu hapus? ", "Konfirmasi",
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                adao.delete(id);
+        
+        int confirm = JOptionPane.showConfirmDialog(
+            this, "Apakah Anda yakin ingin menghapus data ini?", 
+            "Konfirmasi Hapus",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+        
+        if (confirm == JOptionPane.YES_OPTION){
+            boolean success = adao.delete(id);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
                 loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String text = txtCari.getText();
-        
         if(text.length() == 0) {
             sorter.setRowFilter(null);
-        }else {
+        } else {
             try {
-                sorter.setRowFilter(RowFilter.regexFilter(text));
-            }catch(PatternSyntaxException pse) {
+                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            } catch(PatternSyntaxException pse) {
                 System.out.println("Bad Regex Pattern");
             }
         }
+    
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

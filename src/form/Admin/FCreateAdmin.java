@@ -4,28 +4,21 @@
  */
 package form.Admin;
 
-import Config.DatabaseConnection;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import DAO.AdminCodeDAO;
-import Model.Caffe;  
+import Model.Caffe;
 import java.awt.Image;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
- *
+ * 
  * @author syafi
  */
 public class FCreateAdmin extends javax.swing.JInternalFrame {
@@ -33,34 +26,37 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private Integer id;
     private FEditAdmin parent;
     private AdminCodeDAO adao = new AdminCodeDAO();
-    String path2 = null;
-
-    /**
-     * Creates new form FCreateAdmin
-     */
     
-    
+  
+    private byte[] imageBytes = null; 
     public FCreateAdmin() {
         initComponents();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
-        ui.setNorthPane(null);
-        
+        setupUI();
     }
     
     public FCreateAdmin(FEditAdmin parent, Integer id) {
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setupUI();
         this.parent = parent;
         this.id = id;
+        
         if(id != null){
-            setTitle("Ubah caffe");
-            loadData();
+            loadData(); 
         }
     }
     
+    private void setupUI() {
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        ui.setNorthPane(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
     private void loadData() {
+        setTitle("Ubah Data Caffe");
+        btnSimpan.setText("Update");
         Caffe cf = adao.getById(id);
+        
         if (cf != null){
             txtFKategori.setText(cf.getKategori());
             txtFDaerah.setText(cf.getDaerah());
@@ -69,6 +65,26 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
             txtFAlamat.setText(cf.getAlamat());
             txtFLinkMaps.setText(cf.getLinkMaps());
             
+            // Tampilkan Gambar dari Database (Byte Array)
+            if (cf.getGambarData() != null) {
+                displayImage(cf.getGambarData());
+                t_imagePath.setText("(Gambar tersimpan di Database)");
+            }
+        }
+    }
+    
+
+    private void displayImage(byte[] imgData) {
+        try {
+            ImageIcon icon = new ImageIcon(imgData);
+            int labelWidth = lib_gambar.getWidth() > 0 ? lib_gambar.getWidth() : 178;
+            int labelHeight = lib_gambar.getHeight() > 0 ? lib_gambar.getHeight() : 177;
+            
+            Image scaledImg = icon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            lib_gambar.setIcon(new ImageIcon(scaledImg));
+            lib_gambar.setText(""); 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -295,17 +311,19 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtFLinkMapsActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-            // TODO add your handling code here:
-       if (txtFKategori.getText().trim().isEmpty() ||
+            // TODO add your handling code here:                                         
+
+        if (txtFKategori.getText().trim().isEmpty() ||
             txtFDaerah.getText().trim().isEmpty() ||
             txtFNama.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, 
-                "Kategori, Daerah, dan Nama harus diisi!", 
-                "Validasi Error", JOptionPane.ERROR_MESSAGE);
+                "Kategori, Daerah, dan Nama wajib diisi!", 
+                "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
+            
             Caffe cf = new Caffe();
             cf.setKategori(txtFKategori.getText());
             cf.setDaerah(txtFDaerah.getText());
@@ -314,70 +332,75 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
             cf.setAlamat(txtFAlamat.getText());
             cf.setLinkMaps(txtFLinkMaps.getText());
 
-       
+          
             if (imageBytes != null && imageBytes.length > 0) {
-              
                 cf.setGambarStream(new java.io.ByteArrayInputStream(imageBytes));
-            } else if (t_imagePath.getText() != null && !t_imagePath.getText().trim().isEmpty()) {
-           
-                File file = new File(t_imagePath.getText());
-                if (file.exists() && file.canRead()) {
-                    cf.setImagePath(t_imagePath.getText());
-                }
+            } else {
+                cf.setGambarStream(null); 
             }
 
+          
             boolean sukses;
-
             if (id == null) {
-             
+                
                 sukses = adao.insert(cf);
             } else {
-           
+                
                 cf.setId(id);
                 sukses = adao.update(cf);
             }
 
+            
+            
             if (sukses) {
-           
-                resetForm();
-
                 JOptionPane.showMessageDialog(this, 
-                    id == null ? "Data berhasil disimpan!" : "Data berhasil diupdate!");
-
+                    id == null ? "Data Berhasil Disimpan!" : "Data Berhasil Diupdate!");
+  
+                resetForm();
                 if (parent != null) {
                     parent.loadData();
                 }
-                dispose();
+                
+
+                
             } else {
                 JOptionPane.showMessageDialog(this, 
-                    "Gagal menyimpan data! Periksa koneksi database atau ukuran file.",
+                    "Gagal menyimpan data.", 
                     "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, 
-                "Terjadi kesalahan: " + e.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
+                "Terjadi Error: " + e.getMessage(), 
+                "System Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    } 
 
 
     private void resetForm() {
+    
         txtFKategori.setText("");
         txtFDaerah.setText("");
         txtFNama.setText("");
         txtFDeskripsi.setText("");
         txtFAlamat.setText("");
         txtFLinkMaps.setText("");
+        
+ 
         t_imagePath.setText("");
         lib_gambar.setIcon(null);
         lib_gambar.setText("No Image");
-        path2 = null;
-        imageBytes = null;
-        id = null;
-         
+        
+ 
+        imageBytes = null; 
+        id = null;       
+    
+    
+        
+     
     }//GEN-LAST:event_btnSimpanActionPerformed
-    private byte[] imageBytes = null;
+
     
     
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
@@ -391,55 +414,34 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
 
     private void btnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGambarActionPerformed
         // TODO add your handling code here:
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "jpeg", "gif", "png");
-    fileChooser.addChoosableFileFilter(filter);
-    int result = fileChooser.showOpenDialog(this);
-    
-    if(result == JFileChooser.APPROVE_OPTION){
-        File selectedFile = fileChooser.getSelectedFile();
-        String path = selectedFile.getAbsolutePath();
-        t_imagePath.setText(path);
-       
-        try {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Gambar (JPG, PNG)", "jpg", "jpeg", "png");
+        fileChooser.setFileFilter(filter);
+        
+        int result = fileChooser.showOpenDialog(this);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
 
-            imageBytes = Files.readAllBytes(selectedFile.toPath());
-            
-    
-            if (imageBytes.length > 16 * 1024 * 1024) {
-                JOptionPane.showMessageDialog(this, 
-                    "File terlalu besar! Maksimal 16MB. Ukuran file: " + 
-                    (imageBytes.length / (1024 * 1024)) + "MB");
-                imageBytes = null;
-                return;
+                long fileSize = selectedFile.length();
+                if (fileSize > 16 * 1024 * 1024) { 
+                     JOptionPane.showMessageDialog(this, "Ukuran file terlalu besar! Maksimal 16MB.");
+                     return;
+                }
+
+                this.imageBytes = Files.readAllBytes(selectedFile.toPath());
+
+                t_imagePath.setText(selectedFile.getAbsolutePath());
+
+                displayImage(this.imageBytes);
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal membaca file gambar: " + e.getMessage());
+                this.imageBytes = null;
             }
-
-            ImageIcon imageIcon = new ImageIcon(imageBytes);
-            
-
-            int labelWidth = lib_gambar.getWidth();
-            int labelHeight = lib_gambar.getHeight();
-            
-            if (labelWidth <= 0) labelWidth = 178;
-            if (labelHeight <= 0) labelHeight = 177;
-            
-  
-            Image scaledImage = imageIcon.getImage().getScaledInstance(
-                labelWidth, labelHeight, Image.SCALE_SMOOTH);
-            
-            lib_gambar.setIcon(new ImageIcon(scaledImage));
-            path2 = path;
-            
-        } catch (IOException ex){
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error membaca file: " + ex.getMessage());
-            imageBytes = null;
-        } catch (OutOfMemoryError e) {
-            JOptionPane.showMessageDialog(this, "File terlalu besar untuk diproses!");
-            imageBytes = null;
         }
-     }
+    
     }//GEN-LAST:event_btnGambarActionPerformed
 
 
@@ -465,6 +467,8 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtNama;
     private javax.swing.JLabel txtUnggahFoto;
     // End of variables declaration//GEN-END:variables
+
+
 }
 
 

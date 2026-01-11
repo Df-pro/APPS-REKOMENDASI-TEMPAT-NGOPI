@@ -268,7 +268,7 @@ public class RegisterForm extends javax.swing.JFrame {
         txtPassword.setText("");
         txtConfirm.setText("");
         txtAdminCode.setText("");
-        selectedRole_User.setSelected(true); // Reset ke User
+        selectedRole_User.setSelected(true);
         toggleAdminCodeField(false);
         txtUsername.requestFocus();
     }

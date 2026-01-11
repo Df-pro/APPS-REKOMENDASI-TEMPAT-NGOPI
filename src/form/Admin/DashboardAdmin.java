@@ -22,6 +22,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
 
     public DashboardAdmin(User user) {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.currentUser = user;
         
 

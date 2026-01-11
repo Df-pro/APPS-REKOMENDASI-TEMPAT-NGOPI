@@ -1,55 +1,45 @@
 /*
- * NIPONGOPLURR.java
- * Main application class
+ * INPONGOPILUR.java
+ * Main application class (Titik Awal Aplikasi)
  */
-package inpo.ngopilurr; // atau package nipongoplurr;
+package inpo.ngopilurr;
 
-import form.Admin.DashboardAdmin;
 import form.Login.LoginForm;
 import javax.swing.*;
-import java.awt.*;
 
-public class INPONGOPILUR extends JFrame {
+public class INPONGOPILUR {
     
-    public INPONGOPILUR() {
-        initComponents();
-    }
-    
-    private void initComponents() {
-        setTitle("NIPONGOPLURR System");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        
-        // Main panel dengan card layout
-        JPanel mainPanel = new JPanel(new CardLayout());
-        
-        // Tambahkan semua form ke card layout
-        mainPanel.add(new LoginForm(), "Login");
-        
-        getContentPane().add(mainPanel);
-        
-        // Show login form pertama kali
-        CardLayout cl = (CardLayout) mainPanel.getLayout();
-        cl.show(mainPanel, "Login");
-    }
-    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
+        // 1. Setup Tampilan (Agar tombol-tombol terlihat modern sesuai OS)
         try {
-            // Set look and feel
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            // Opsi 1: Pakai Nimbus (Tampilan Modern Java)
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+            // Opsi 2: Pakai System (Mirip Windows asli) -> Hapus komen bawah jika ingin pakai ini
+            // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            
         } catch (ClassNotFoundException | InstantiationException | 
                  IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
         
+        // 2. Jalankan Form Login
         SwingUtilities.invokeLater(() -> {
-            new INPONGOPILUR().setVisible(true);
+            // Membuka jendela Login
+            LoginForm login = new LoginForm();
+            
+            // Posisikan di tengah layar
+            login.setLocationRelativeTo(null);
+            
+            // Tampilkan
+            login.setVisible(true);
         });
-        
-        
-       DashboardAdmin da = new DashboardAdmin();
-       da.setLocationRelativeTo(null);
-       da.setVisible(true);
     }
 }

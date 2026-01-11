@@ -1,5 +1,3 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -21,24 +19,15 @@ public class Caffe {
     private String deskripsi;
     private String alamat;
     private String linkMaps;
-    private String idPicture;
+    
+
+
     private InputStream gambarStream;
-    
-    public Caffe(){
-        
-    }
+    private byte[] gambarData; 
+    public Caffe() {}
 
-    public Caffe(String kategori, String daerah, String namaCaffe, String deskripsi, String alamat, String linkMaps) {
-        this.kategori = kategori;
-        this.daerah = daerah;
-        this.namaCaffe = namaCaffe;
-        this.deskripsi = deskripsi;
-        this.alamat = alamat;
-        this.linkMaps = linkMaps;
-    }
-    
 
-    public Caffe(int id, String kategori, String daerah, String namaCaffe, String deskripsi, String alamat, String linkMaps, String idPicture){
+    public Caffe(int id, String kategori, String daerah, String namaCaffe, String deskripsi, String alamat, String linkMaps) {
         this.id = id;
         this.kategori = kategori;
         this.daerah = daerah;
@@ -46,113 +35,103 @@ public class Caffe {
         this.deskripsi = deskripsi;
         this.alamat = alamat;
         this.linkMaps = linkMaps;
-        this.idPicture = idPicture;
     }
     
 
-    public Caffe(int id, String kategori, String daerah, String namaCaffe, String deskripsi, String alamat, String linkMaps, InputStream gambarStream) {
-        this.id = id;
-        this.kategori = kategori;
-        this.daerah = daerah;
-        this.namaCaffe = namaCaffe;
-        this.deskripsi = deskripsi;
-        this.alamat = alamat;
-        this.linkMaps = linkMaps;
-        this.gambarStream = gambarStream;
+    public Caffe(int id, String kategori, String daerah, String namaCaffe, String deskripsi, String alamat, String linkMaps, String idPictureIgnored) {
+        this(id, kategori, daerah, namaCaffe, deskripsi, alamat, linkMaps);
+        // String idPictureIgnored tidak disimpan karena kita pakai gambarData (byte)
     }
-    
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
     public int getId() {
-        return id;
+        return id; 
     }
-    
+    public void setId(int id){
+        this.id = id;
+    }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
-    public String getKategori() {
+    public String getKategori(){
         return kategori;
     }
     
-    public void setDaerah(String daerah) {
-        this.daerah = daerah;
+    public void setKategori(String kategori){
+        this.kategori = kategori;
     }
-    public String getDaerah() {
+
+    public String getDaerah(){
         return daerah;
     }
+    
+    public void setDaerah(String daerah){
+        this.daerah = daerah;
+    }
 
-    public void setNamaCaffe(String namaCaffe) {
+    public String getNamaCaffe(){
+        return namaCaffe; 
+    }
+    public void setNamaCaffe(String namaCaffe){
         this.namaCaffe = namaCaffe;
     }
-    public String getNamaCaffe() {
-        return namaCaffe;
-    }
-    
-    public void setDeskripsi(String deskripsi) {
-        this.deskripsi = deskripsi;
-    }
-    public String getDeskripsi() {
+
+    public String getDeskripsi(){
         return deskripsi;
     }
-    
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setDeskripsi(String deskripsi){
+        this.deskripsi = deskripsi; 
     }
-    public String getAlamat() {
+
+    public String getAlamat(){
         return alamat;
     }
-
-    public void setLinkMaps(String linkMaps) {
-        this.linkMaps = linkMaps;
+    
+    public void setAlamat(String alamat){
+        this.alamat = alamat;
     }
-    public String getLinkMaps() {
+
+    public String getLinkMaps(){
         return linkMaps;
     }
-    
+    public void setLinkMaps(String linkMaps) { this.linkMaps = linkMaps; }
 
-    public void setIdPicture(String idPicture) {
-        this.idPicture = idPicture;
-    }
-    public String getIdPicture() {
-        return idPicture;
-    }
-    
 
-    public void setImagePath(String imagePath) {
-        this.idPicture = imagePath;
-    }
-    public String getImagePath() {
-        return idPicture;
-    }
     
-
+    
     public InputStream getGambarStream() {
         return gambarStream;
     }
     public void setGambarStream(InputStream gambarStream) {
         this.gambarStream = gambarStream;
     }
-    
 
-    public void tampilkanData(){
-        System.out.println("\n=== Data Caffe ===");
-        System.out.println("ID Caffe : " + id);
-        System.out.println("Kategori : " + kategori);
-        System.out.println("Daerah : " + daerah);
-        System.out.println("Nama Caffe : " + namaCaffe);
-        System.out.println("Deskripsi : " + deskripsi);
-        System.out.println("Alamat : " + alamat);
-        System.out.println("Link Maps : " + linkMaps);
-        System.out.println("ID Picture/Path : " + (idPicture != null ? idPicture : "Tidak ada"));
+    
+    public byte[] getGambarData() {
+        return gambarData;
+    }
+    public void setGambarData(byte[] gambarData) {
+        this.gambarData = gambarData;
+    }
+
+
+    public boolean hasImageLoaded() {
+        return gambarData != null && gambarData.length > 0;
     }
     
 
+    
     @Override
     public String toString() {
-        return namaCaffe + " - " + daerah + " (" + kategori + ")";
+        return namaCaffe + " (" + daerah + ")";
+    }
+    
+
+    
+    
+    
+    
+    public void debugPrint() {
+        System.out.println("Caffe: " + namaCaffe);
+        System.out.println("- Stream Upload: " + (gambarStream != null ? "Ada" : "Kosong"));
+        System.out.println("- Data Download: " + (hasImageLoaded() ? gambarData.length + " bytes" : "Belum di-load"));
     }
 }

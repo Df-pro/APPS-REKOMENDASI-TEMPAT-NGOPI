@@ -3,21 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package form.Admin;
+
 import DAO.AdminCodeDAO;
-import form.Admin.DashboardAdmin;
-import Model.Caffe;  
+import Model.Caffe;
 import java.awt.Image;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-/**
- *
+
+/** 
  * @author syafi
+ * 
  */
 public class FormEdit extends javax.swing.JFrame {
     
@@ -26,24 +27,28 @@ public class FormEdit extends javax.swing.JFrame {
     private Integer id;
     private FEditAdmin parent;
     private AdminCodeDAO adao = new AdminCodeDAO();
-    String path2 = null;
+    
     private byte[] imageBytes = null;
 
     public FormEdit(FEditAdmin parent, Integer id) {
         initComponents();
-           // ini code buat ful layar 
-          this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
         this.parent = parent;
         this.id = id;
+        
         if(id != null){
-            setTitle("Ubah Kucing");
+            setTitle("Edit Data Caffe");
             loadData();
+        } else {
+            setTitle("Tambah Data Caffe");
         }
     }
     
     private void loadData() {
         Caffe cf = adao.getById(id);
+        
         if (cf != null){
             txtFKategori.setText(cf.getKategori());
             txtFDaerah.setText(cf.getDaerah());
@@ -52,6 +57,28 @@ public class FormEdit extends javax.swing.JFrame {
             txtFAlamat.setText(cf.getAlamat());
             txtFLinkMaps.setText(cf.getLinkMaps());
             
+
+            if (cf.getGambarData() != null) {
+                this.imageBytes = cf.getGambarData(); 
+                displayImage(this.imageBytes);
+                t_imagePath.setText("(Gambar dari Database)");
+            }
+        }
+    }
+    
+
+    
+    private void displayImage(byte[] imgData) {
+        try {
+            ImageIcon icon = new ImageIcon(imgData);
+            int labelWidth = lib_gambar.getWidth() > 0 ? lib_gambar.getWidth() : 178;
+            int labelHeight = lib_gambar.getHeight() > 0 ? lib_gambar.getHeight() : 177;
+            
+            Image scaledImg = icon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+            lib_gambar.setIcon(new ImageIcon(scaledImg));
+            lib_gambar.setText(""); 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -254,12 +281,13 @@ public class FormEdit extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
+
         if (txtFKategori.getText().trim().isEmpty() ||
             txtFDaerah.getText().trim().isEmpty() ||
             txtFNama.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, 
-                "Kategori, Daerah, dan Nama harus diisi!", 
-                "Validasi Error", JOptionPane.ERROR_MESSAGE);
+                "Kategori, Daerah, dan Nama wajib diisi!", 
+                "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -272,35 +300,29 @@ public class FormEdit extends javax.swing.JFrame {
             cf.setAlamat(txtFAlamat.getText());
             cf.setLinkMaps(txtFLinkMaps.getText());
 
-       
+        
             if (imageBytes != null && imageBytes.length > 0) {
-              
-                cf.setGambarStream(new java.io.ByteArrayInputStream(imageBytes));
-            } else if (t_imagePath.getText() != null && !t_imagePath.getText().trim().isEmpty()) {
-           
-                File file = new File(t_imagePath.getText());
-                if (file.exists() && file.canRead()) {
-                    cf.setImagePath(t_imagePath.getText());
-                }
+                cf.setGambarStream(new ByteArrayInputStream(imageBytes));
+            } else {
+                cf.setGambarStream(null);
             }
 
-            boolean sukses;
 
+            
+            boolean sukses;
             if (id == null) {
              
                 sukses = adao.insert(cf);
             } else {
-           
+
                 cf.setId(id);
                 sukses = adao.update(cf);
             }
 
             if (sukses) {
-           
-                resetForm();
-
                 JOptionPane.showMessageDialog(this, 
-                    id == null ? "Data berhasil disimpan!" : "Data berhasil diupdate!");
+                    id == null ? "Data berhasil disimpan!" : "Data berhasil diperbarui!");
+
 
                 if (parent != null) {
                     parent.loadData();
@@ -308,32 +330,16 @@ public class FormEdit extends javax.swing.JFrame {
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, 
-                    "Gagal menyimpan data! Periksa koneksi database atau ukuran file.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    "Gagal menyimpan data.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, 
-                "Terjadi kesalahan: " + e.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
+                "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
-    
-    private void resetForm() {
-        txtFKategori.setText("");
-        txtFDaerah.setText("");
-        txtFNama.setText("");
-        txtFDeskripsi.setText("");
-        txtFAlamat.setText("");
-        txtFLinkMaps.setText("");
-        t_imagePath.setText("");
-        lib_gambar.setIcon(null);
-        lib_gambar.setText("No Image");
-        path2 = null;
-        imageBytes = null;
-        id = null;
-         
-    }                                         
+                                        
     
     
     private void txtFLinkMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFLinkMapsActionPerformed
@@ -367,54 +373,30 @@ public class FormEdit extends javax.swing.JFrame {
     private void btnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGambarActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "jpeg", "gif", "png");
-    fileChooser.addChoosableFileFilter(filter);
-    int result = fileChooser.showOpenDialog(this);
-    
-    if(result == JFileChooser.APPROVE_OPTION){
-        File selectedFile = fileChooser.getSelectedFile();
-        String path = selectedFile.getAbsolutePath();
-        t_imagePath.setText(path);
-       
-        try {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Gambar (JPG, PNG)", "jpg", "jpeg", "png");
+        fileChooser.setFileFilter(filter);
+        
+        int result = fileChooser.showOpenDialog(this);
+        
+        if(result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = fileChooser.getSelectedFile();
+            try {
 
-            imageBytes = Files.readAllBytes(selectedFile.toPath());
-            
-    
-            if (imageBytes.length > 16 * 1024 * 1024) {
-                JOptionPane.showMessageDialog(this, 
-                    "File terlalu besar! Maksimal 16MB. Ukuran file: " + 
-                    (imageBytes.length / (1024 * 1024)) + "MB");
-                imageBytes = null;
-                return;
-            }
-
-            ImageIcon imageIcon = new ImageIcon(imageBytes);
-            
-
-            int labelWidth = lib_gambar.getWidth();
-            int labelHeight = lib_gambar.getHeight();
-            
-            if (labelWidth <= 0) labelWidth = 178;
-            if (labelHeight <= 0) labelHeight = 177;
-            
-  
-            Image scaledImage = imageIcon.getImage().getScaledInstance(
-                labelWidth, labelHeight, Image.SCALE_SMOOTH);
-            
-            lib_gambar.setIcon(new ImageIcon(scaledImage));
-            path2 = path;
-            
-        } catch (IOException ex){
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error membaca file: " + ex.getMessage());
-            imageBytes = null;
-        } catch (OutOfMemoryError e) {
-            JOptionPane.showMessageDialog(this, "File terlalu besar untuk diproses!");
-            imageBytes = null;
+                if (selectedFile.length() > 16 * 1024 * 1024) {
+                    JOptionPane.showMessageDialog(this, "Ukuran file terlalu besar! Maksimal 16MB.");
+                    return;
+                }
+                
+                this.imageBytes = Files.readAllBytes(selectedFile.toPath());
+                t_imagePath.setText(selectedFile.getAbsolutePath());
+                displayImage(this.imageBytes);
+                
+            } catch (Exception ex){
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Gagal membaca file gambar.");
+                this.imageBytes = null;
+            } 
         }
-     }
     }//GEN-LAST:event_btnGambarActionPerformed
 
     /**

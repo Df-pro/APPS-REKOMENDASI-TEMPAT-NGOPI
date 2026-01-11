@@ -17,9 +17,6 @@ import javax.swing.table.DefaultTableModel;
 public class FInformationAdmin extends javax.swing.JInternalFrame {
     
     AdminCodeDAO adao = new AdminCodeDAO ();
-    /**
-     * Creates new form FEditAdmin
-     */
     public FInformationAdmin() {
         initComponents();
         

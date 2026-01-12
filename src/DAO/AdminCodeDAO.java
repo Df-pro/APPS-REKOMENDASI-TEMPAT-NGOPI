@@ -50,7 +50,7 @@ public class AdminCodeDAO extends CoffeShopDAO {
 
     @Override
     public List<Caffe> getAll() {
-        List<Caffe> list = new ArrayList<>();
+        List<Caffe> list =  new ArrayList<>();
         String sql = "SELECT id, kategori, daerah, namaCaffe, deskripsi, alamat, linkMaps FROM Caffe";
         
         try (Connection conn = DatabaseConnection.getConnection();
@@ -165,5 +165,27 @@ public class AdminCodeDAO extends CoffeShopDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    @Override
+    // Method untuk mendapatkan jumlah user terdaftar
+    public int getTotalCaffe() {
+        String sql = "SELECT COUNT(*) as total FROM Caffe";
+        int total = 0;
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }                                                           
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error getting total caffe: " + e.getMessage());
+            
+        }
+        
+        return total;
     }
 }

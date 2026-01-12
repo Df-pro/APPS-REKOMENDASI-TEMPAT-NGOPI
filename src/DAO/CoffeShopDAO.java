@@ -191,4 +191,57 @@ public class CoffeShopDAO {
         }
         return cf;
     }
+    
+    // Method untuk mendapatkan jumlah user terdaftar
+    public int getTotalCaffe() {
+        String sql = "SELECT COUNT(*) as total FROM Caffe";
+        int total = 0;
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return total;
+    }
+    
+    public int getTraditionalCaffeCount() {
+        String sql = "SELECT COUNT(*) FROM Caffe WHERE kategori LIKE '%Traditional%' OR kategori LIKE '%Tradisional%'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+    
+    public int getModernCaffeCount() {
+        String sql = "SELECT COUNT(*) FROM Caffe WHERE kategori LIKE '%Modern%'";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 }

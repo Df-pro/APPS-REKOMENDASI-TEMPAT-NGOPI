@@ -88,14 +88,18 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtDetailMenu" min="-2" pref="260" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="txtMenuName" min="-2" pref="125" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                                      <Component id="txtMenu1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="272" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="246" max="-2" attributes="0"/>
+                                              <Component id="txtMenu1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtMenuName" alignment="0" min="-2" pref="277" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>

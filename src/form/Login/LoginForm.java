@@ -168,7 +168,7 @@ public class LoginForm extends javax.swing.JFrame {
     
     private void redirectToDashboard(User user) {
         try {
-            if (user.isAdmin()) {
+            if (user.getIsAdmin()) {
 
                 DashboardAdmin adminDash = new DashboardAdmin(user);
                 adminDash.setVisible(true);

@@ -160,9 +160,13 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         txtUnggahFoto.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         txtUnggahFoto.setText("Unggah Foto");
 
+        btnSimpan.setBackground(new java.awt.Color(255, 255, 51));
+        btnSimpan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(this::btnSimpanActionPerformed);
 
+        btnBatal.setBackground(new java.awt.Color(255, 0, 0));
+        btnBatal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBatal.setText("Batal");
         btnBatal.addActionListener(this::btnBatalActionPerformed);
 
@@ -188,7 +192,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(373, 373, 373)
                         .addComponent(jLabel1)))
-                .addContainerGap(458, Short.MAX_VALUE))
+                .addContainerGap(457, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +259,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBatal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtUnggahFoto)

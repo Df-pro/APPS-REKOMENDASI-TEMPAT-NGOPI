@@ -76,7 +76,7 @@ public class User_InfoNgopi extends javax.swing.JFrame {
 
         lbSearch.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         lbSearch.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbSearch.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\anjing\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Google Web Search_1.png")); // NOI18N
+        lbSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Google Web Search_1.png"))); // NOI18N
         lbSearch.setText("SCR");
         lbSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -140,7 +140,7 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         iconMaps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMaps.setIcon(new javax.swing.ImageIcon("E:\\UAG\\Semester 3\\PBO\\anjing\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Google Maps_2.png")); // NOI18N
+        iconMaps.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Google Maps_2.png"))); // NOI18N
         iconMaps.setText("mps");
         iconMaps.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         iconMaps.setIconTextGap(0);

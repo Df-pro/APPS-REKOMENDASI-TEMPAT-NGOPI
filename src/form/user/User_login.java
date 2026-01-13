@@ -4,6 +4,11 @@
  */
 package form.user;
 
+import form.Login.LoginForm;
+import form.Login.RegisterForm;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+
 /**
  *
  * @author dwife
@@ -15,6 +20,9 @@ public class User_login extends javax.swing.JFrame {
      */
     public User_login() {
         initComponents();
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //tAreaDeks.setEditable(false);
+        tAreaDeks.setFocusable(false);
     }
 
     /**
@@ -26,54 +34,79 @@ public class User_login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        btnLogin = new javax.swing.JButton();
+        btnRegistrasi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tAreaDeks = new javax.swing.JTextArea();
+        lbDeskripsi = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        btnLogin.setBackground(new java.awt.Color(252, 208, 89));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(9, 64, 49));
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 510, 160, 50));
 
-        jLabel1.setText("Beranda");
+        btnRegistrasi.setBackground(new java.awt.Color(252, 208, 89));
+        btnRegistrasi.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnRegistrasi.setForeground(new java.awt.Color(9, 64, 49));
+        btnRegistrasi.setText("Registrasi");
+        btnRegistrasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrasiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistrasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 510, 150, 50));
 
-        jLabel2.setText("Tradisional");
+        tAreaDeks.setBackground(new java.awt.Color(9, 64, 49));
+        tAreaDeks.setColumns(20);
+        tAreaDeks.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        tAreaDeks.setForeground(new java.awt.Color(255, 255, 255));
+        tAreaDeks.setLineWrap(true);
+        tAreaDeks.setRows(5);
+        tAreaDeks.setText("Info Ngopi Lurr adalah aplikasi rekomendasi tempat ngopi berbasis Java Desktop yang membantu pengguna menentukan pilihan coffee shop ketika mereka bingung mencari tempat ngopi yang sesuai. Aplikasi ini menyediakan informasi coffee shop serta fitur pencarian dan filter berdasarkan preferensi pengguna, seperti lokasi, rating, dan rentang harga. Sistem mendukung dua jenis pengguna, yaitu Admin dan User, dengan hak akses yang berbeda.");
+        tAreaDeks.setWrapStyleWord(true);
+        tAreaDeks.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tAreaDeks);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(67, 67, 67)
-                .addComponent(jLabel2)
-                .addContainerGap(675, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(446, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 700, 190));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        lbDeskripsi.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        lbDeskripsi.setForeground(new java.awt.Color(255, 255, 255));
+        lbDeskripsi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDeskripsi.setText("Info Ngopi Lurrrr");
+        lbDeskripsi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 490, 100));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/latar_halaman.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrasiActionPerformed
+        // TODO add your handling code here:
+        // Atur border radius
+        RegisterForm regis = new RegisterForm();
+        regis.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_btnRegistrasiActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,9 +144,12 @@ public class User_login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnRegistrasi;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbDeskripsi;
+    private javax.swing.JTextArea tAreaDeks;
     // End of variables declaration//GEN-END:variables
 }
 

@@ -303,10 +303,6 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFNamaActionPerformed
 
-    private void txtFDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFDeskripsiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFDeskripsiActionPerformed
-
     private void txtFAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFAlamatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFAlamatActionPerformed
@@ -448,6 +444,10 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         }
     
     }//GEN-LAST:event_btnGambarActionPerformed
+
+    private void txtFDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFDeskripsiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFDeskripsiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -477,5 +477,3 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
 }
 
 
-
-

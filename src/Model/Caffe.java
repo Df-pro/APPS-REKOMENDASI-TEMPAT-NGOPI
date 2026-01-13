@@ -135,3 +135,4 @@ public class Caffe {
         System.out.println("- Data Download: " + (hasImageLoaded() ? gambarData.length + " bytes" : "Belum di-load"));
     }
 }
+

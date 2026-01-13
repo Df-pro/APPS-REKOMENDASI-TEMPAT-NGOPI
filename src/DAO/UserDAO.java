@@ -104,19 +104,18 @@ public class UserDAO {
         return false;
     }
     
-   
-    // 0 -> "User", 1 -> "Admin"
+
     private String intToRole(int isAdminInt) {
         return isAdminInt == 1 ? "Admin" : "User";
     }
     
-    // "User" -> 0, "Admin" -> 1
+
     private int roleToInt(String isAdmin) {
         return "Admin".equalsIgnoreCase(isAdmin) ? 1 : 0;
     }
     
     
-    // Table User
+
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
 
@@ -137,8 +136,7 @@ public class UserDAO {
         return list;
     }
     
-    
-    // Method untuk mendapatkan jumlah user terdaftar
+
     public int getTotalUsers() {
         String sql = "SELECT COUNT(*) as total FROM users";
         int total = 0;
@@ -162,12 +160,11 @@ public class UserDAO {
         us.setUserId(rs.getInt("user_id"));
         us.setEmail(rs.getString("email"));
         us.setUsername(rs.getString("username"));
-        
-        // Mengambil is_admin sebagai boolean (0/1)
+
         boolean isAdmin = rs.getBoolean("is_admin");
         us.setIsAdmin(isAdmin);
         
-        // Konversi Timestamp ke LocalDateTime
+    
         Timestamp timestamp = rs.getTimestamp("created_at");
         if (timestamp != null) {
             us.setCreatedAt(timestamp.toLocalDateTime());
@@ -179,5 +176,7 @@ public class UserDAO {
     
     
 }
+
+
 
 

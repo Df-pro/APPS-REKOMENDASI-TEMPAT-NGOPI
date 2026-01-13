@@ -71,22 +71,27 @@ public class User {
         this.isAdmin = isAdmin;
     }
     
-    // Method untuk mendapatkan role dalam bentuk String
+    
+    
+    
+    
+    
+
     public String getRoleAsString() {
         return isAdmin ? "Admin" : "User";
     }
     
-    // Method untuk set role dari String
+   
     public void setRoleFromString(String role) {
         this.isAdmin = "Admin".equalsIgnoreCase(role) || "1".equals(role);
     }
     
-    // Method untuk set role dari integer (0/1)
+
     public void setRoleFromInt(int role) {
         this.isAdmin = (role == 1);
     }
     
-    // Method untuk mendapatkan role sebagai integer (0/1)
+  
     public int getRoleAsInt() {
         return isAdmin ? 1 : 0;
     }

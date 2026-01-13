@@ -167,6 +167,10 @@ public class AdminCodeDAO extends CoffeShopDAO {
         }
     }
     
+    
+    
+    
+    
     @Override
     // Method untuk mendapatkan jumlah user terdaftar
     public int getTotalCaffe() {

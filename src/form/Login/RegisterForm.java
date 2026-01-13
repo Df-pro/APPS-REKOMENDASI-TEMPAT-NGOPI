@@ -17,6 +17,8 @@ import java.security.NoSuchAlgorithmException;
  * @author dwife
  * 
  */
+
+
 public class RegisterForm extends javax.swing.JFrame {
 
     private UserDAO userDAO;
@@ -679,6 +681,8 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
+
+
 
 
 

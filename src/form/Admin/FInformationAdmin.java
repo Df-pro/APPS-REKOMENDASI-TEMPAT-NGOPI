@@ -535,3 +535,5 @@ public class FInformationAdmin extends javax.swing.JInternalFrame {
 }
 
 
+
+

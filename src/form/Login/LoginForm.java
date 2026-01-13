@@ -482,6 +482,3 @@ public class LoginForm extends javax.swing.JFrame {
 
 
 
-
-
-

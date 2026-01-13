@@ -31,7 +31,7 @@ public class CoffeShopDAO {
             ps.setString(5, cf.getAlamat());
             ps.setString(6, cf.getLinkMaps());
 
-            //Hanya cek Stream (In-Memory)
+          
             if (cf.getGambarStream() != null) {
                 ps.setBlob(7, cf.getGambarStream());
             } else {
@@ -182,7 +182,7 @@ public class CoffeShopDAO {
 
                 Blob blob = rs.getBlob("idPicture");
                 if (blob != null) {
-                    // Simpan sebagai byte[] di memori
+               
                     cf.setGambarData(blob.getBytes(1, (int) blob.length()));
                 }
             }
@@ -192,7 +192,7 @@ public class CoffeShopDAO {
         return cf;
     }
     
-    // Method untuk mendapatkan jumlah user terdaftar
+   
     public int getTotalCaffe() {
         String sql = "SELECT COUNT(*) as total FROM Caffe";
         int total = 0;

@@ -20,165 +20,21 @@ import javax.swing.border.EmptyBorder;
  * @author dwife
  */
 
-     //======= INI HASIL GPT, INI UNTUK TESTING AMBIL GAMBAR DARI DATABAE APAKAH TETEP LAG ATAU TIDAK======
-public class user_dashboard extends javax.swing.JFrame {
-
-    // 1. Siapkan DAO
-    private final CoffeShopDAO dao = new CoffeShopDAO();
     
-    // 2. Siapkan Wadah untuk Kartu-Kartu
-    private JPanel mainContainer; 
+public class User_InfoNgopi extends javax.swing.JFrame {
 
-    public user_dashboard() {
+    
+    private JPanel mainContainer;                                                   
+
+    public User_InfoNgopi() {
         
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        // Init komponen bawaan Netbeans
+        
         initComponents();
         
-        // Setup Manual Tampilan (Biar gak usah drag-drop dulu buat tes)
-        setupSimpleUI();
-        
-        // Mulai Load Data
-        loadData();
     }
     
-    // --- SETUP TAMPILAN SEDERHANA ---
-    private void setupSimpleUI() {
-        setTitle("Test Tampilan User - Lazy Loading");
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Full Screen
-        setLayout(new BorderLayout()); // Layout Utama
-        
-        // Header
-        JLabel header = new JLabel("DAFTAR REKOMENDASI KOPI", SwingConstants.CENTER);
-        header.setFont(new Font("Arial", Font.BOLD, 24));
-        header.setBorder(new EmptyBorder(20, 0, 20, 0));
-        add(header, BorderLayout.NORTH);
-        
-        // Container Grid (Tempat Kartu)
-        mainContainer = new JPanel();
-        // Grid: Baris Otomatis (0), 4 Kolom, Jarak 20px
-        mainContainer.setLayout(new GridLayout(0, 4, 20, 20)); 
-        mainContainer.setBorder(new EmptyBorder(20, 20, 20, 20));
-        
-        // Scroll Pane (Agar bisa discroll)
-        JScrollPane scroll = new JScrollPane(mainContainer);
-        scroll.getVerticalScrollBar().setUnitIncrement(16); // Scroll biar smooth
-        add(scroll, BorderLayout.CENTER);
-    }
     
-    // --- LOGIKA LOAD DATA ---
-    private void loadData() {
-        mainContainer.removeAll();
-        
-        // Tampilkan loading text sementara
-        JLabel loading = new JLabel("Sedang mengambil data dari server...", SwingConstants.CENTER);
-        mainContainer.add(loading);
-        mainContainer.revalidate();
-        
-        // Worker Background (Ambil Data Teks Dulu)
-        new SwingWorker<List<Caffe>, Void>() {
-            @Override
-            protected List<Caffe> doInBackground() throws Exception {
-                // Panggil DAO getAll()
-                return dao.getAll(); 
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    mainContainer.remove(loading); // Hapus loading
-                    List<Caffe> data = get();
-                    
-                    if (data.isEmpty()) {
-                        mainContainer.add(new JLabel("Data Kosong"));
-                    } else {
-                        // Loop data dan buat kartu
-                        for (Caffe c : data) {
-                            addCard(c);
-                        }
-                    }
-                    mainContainer.revalidate();
-                    mainContainer.repaint();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error koneksi database");
-                }
-            }
-        }.execute();
-    }
-    
-    // --- MEMBUAT 1 KARTU ---
-    private void addCard(Caffe c) {
-        JPanel card = new JPanel();
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-        card.setBackground(Color.WHITE);
-        
-        // Area Gambar (Placeholder)
-        JLabel imgLabel = new JLabel("Loading Img...", SwingConstants.CENTER);
-        imgLabel.setPreferredSize(new Dimension(250, 150)); // Ukuran Gambar
-        imgLabel.setMaximumSize(new Dimension(250, 150));
-        imgLabel.setOpaque(true);
-        imgLabel.setBackground(Color.LIGHT_GRAY);
-        imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        // Nama Kafe
-        JLabel nameLabel = new JLabel(c.getNamaCaffe());
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        // Daerah
-        JLabel regionLabel = new JLabel(c.getDaerah());
-        regionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        // Masukkan ke Kartu
-        card.add(Box.createVerticalStrut(10));
-        card.add(imgLabel);
-        card.add(Box.createVerticalStrut(10));
-        card.add(nameLabel);
-        card.add(regionLabel);
-        card.add(Box.createVerticalStrut(10));
-        
-        // Masukkan Kartu ke Container Utama
-        mainContainer.add(card);
-        
-        // DOWNLOAD GAMBAR DI BACKGROUND (Lazy Load)
-        loadSingleImage(c.getId(), imgLabel);
-    }
-    
-    // --- DOWNLOAD GAMBAR PER ITEM ---
-    private void loadSingleImage(int id, JLabel targetLabel) {
-        new SwingWorker<ImageIcon, Void>() {
-            @Override
-            protected ImageIcon doInBackground() throws Exception {
-                // Ambil BLOB Gambar dari DAO
-                byte[] imgData = dao.getImageBytesById(id);
-                
-                if (imgData != null) {
-                    // Resize Gambar agar ringan
-                    Image img = ImageIO.read(new ByteArrayInputStream(imgData));
-                    Image scaled = img.getScaledInstance(250, 150, Image.SCALE_SMOOTH);
-                    return new ImageIcon(scaled);
-                }
-                return null;
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    ImageIcon icon = get();
-                    if (icon != null) {
-                        targetLabel.setText(""); // Hapus teks loading
-                        targetLabel.setIcon(icon);
-                    } else {
-                        targetLabel.setText("No Image");
-                    }
-                } catch (Exception e) {
-                    targetLabel.setText("Error Img");
-                }
-            }
-        }.execute();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -203,10 +59,10 @@ public class user_dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1170, 767));
 
         pnDasar.setBackground(new java.awt.Color(9, 64, 49));
         pnDasar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnDasar.setPreferredSize(new java.awt.Dimension(1224, 700));
 
         jPanel1.setBackground(new java.awt.Color(9, 64, 49));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 208, 89), 2));
@@ -256,15 +112,15 @@ public class user_dashboard extends javax.swing.JFrame {
             pnGambarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnGambarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(blGambar, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addComponent(blGambar, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnGambarLayout.setVerticalGroup(
             pnGambarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnGambarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(blGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(blGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         lbDeskripsi.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
@@ -304,12 +160,13 @@ public class user_dashboard extends javax.swing.JFrame {
                 .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbNameCaffe, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDasarLayout.createSequentialGroup()
                                 .addComponent(iconMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
                         .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDasarLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
@@ -327,21 +184,21 @@ public class user_dashboard extends javax.swing.JFrame {
                 .addComponent(lbNameCaffe, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(pnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnDasarLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(lbDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnDasarLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(pnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(iconMaps))
                     .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(iconMaps)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -353,7 +210,7 @@ public class user_dashboard extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnDasar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnDasar, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -381,20 +238,21 @@ public class user_dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(user_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_InfoNgopi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(user_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_InfoNgopi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(user_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_InfoNgopi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(user_dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_InfoNgopi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new user_dashboard().setVisible(true);
+                new User_InfoNgopi().setVisible(true);
             }
         });
     }

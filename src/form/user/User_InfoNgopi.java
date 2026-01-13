@@ -8,33 +8,135 @@ package form.user;
 
 import DAO.CoffeShopDAO;
 import Model.Caffe;
-import java.awt.*;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Image;
 import java.io.ByteArrayInputStream;
-import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author dwife
  */
 
-    
 public class User_InfoNgopi extends javax.swing.JFrame {
 
-    
-    private JPanel mainContainer;                                                   
 
-    public User_InfoNgopi() {
-        
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+    private final Caffe caffeSedangDilihat;
+    private final CoffeShopDAO dao = new CoffeShopDAO(); 
+
+    public User_InfoNgopi(Caffe caffeDariDepan) {
+        this.caffeSedangDilihat = caffeDariDepan;
         initComponents();
-        
+        setupUI();
+        tampilkanDetail();
     }
     
+
+    public User_InfoNgopi() {
+        this.caffeSedangDilihat = null;
+        initComponents();
+        setupUI();
+    }
+
+
+    private void setupUI() {
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setFocusable(false);
+        jTextArea1.setOpaque(false);
+        jTextArea1.setBorder(null);
+        
+
+        iconMaps.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn_BalikAhh.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+
+        safeLoadIcon(iconMaps, "/image/Google Maps_2.png");
+    }
     
+
+    private void safeLoadIcon(JLabel label, String path) {
+        try {
+            URL url = getClass().getResource(path);
+            if (url != null) {
+                label.setIcon(new ImageIcon(url));
+                label.setText("");
+            } else {
+                System.err.println("Warning: Gambar tidak ditemukan di " + path);
+                label.setText("Maps");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void tampilkanDetail() {
+        if (caffeSedangDilihat == null) return;
+        lbNameCaffe.setText(caffeSedangDilihat.getNamaCaffe());
+        this.setTitle("Info Ngopi: " + caffeSedangDilihat.getNamaCaffe());
+        
+
+        jTextArea1.setText(caffeSedangDilihat.getDeskripsi());
+        jTextArea1.setCaretPosition(0);
+        String alamat = caffeSedangDilihat.getAlamat(); 
+        if (alamat == null || alamat.trim().isEmpty()) {
+            alamat = "Alamat belum tersedia.";
+        }
+        
+        txt_alamatlengkap.setText("<html><body style='width: 400px; color: white; font-family: Segoe UI; font-size: 14px;'>" + alamat + "</body></html>");
+        
+
+        loadGambarPenuh(caffeSedangDilihat.getId());
+    }
+
+
+    private void loadGambarPenuh(int idCaffe) {
+        blGambar.setText("Memuat gambar...");
+        blGambar.setIcon(null);
+        blGambar.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        new SwingWorker<ImageIcon, Void>() {
+            @Override
+            protected ImageIcon doInBackground() throws Exception {
+                byte[] imgData = dao.getImageBytesById(idCaffe);
+                if (imgData != null) {
+                    Image img = ImageIO.read(new ByteArrayInputStream(imgData));
+                    if (img != null) {
+                        int targetW = blGambar.getWidth() > 0 ? blGambar.getWidth() : 600;
+                        int targetH = blGambar.getHeight() > 0 ? blGambar.getHeight() : 400;
+                        Image scaled = img.getScaledInstance(targetW, targetH, Image.SCALE_SMOOTH);
+                        return new ImageIcon(scaled);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    ImageIcon icon = get();
+                    if (icon != null) {
+                        blGambar.setText("");
+                        blGambar.setIcon(icon);
+                    } else {
+                        blGambar.setText("Gambar tidak tersedia");
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    blGambar.setText("Gagal memuat gambar");
+                }
+            }
+        }.execute();
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,8 +149,6 @@ public class User_InfoNgopi extends javax.swing.JFrame {
 
         pnDasar = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        txtFSearch = new javax.swing.JTextField();
-        lbSearch = new javax.swing.JLabel();
         lbNameCaffe = new javax.swing.JLabel();
         pnGambar = new javax.swing.JPanel();
         blGambar = new javax.swing.JLabel();
@@ -56,7 +156,8 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         iconMaps = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        txt_alamatlengkap = new javax.swing.JLabel();
+        btn_BalikAhh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,37 +168,15 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(9, 64, 49));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 208, 89), 2));
 
-        txtFSearch.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtFSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFSearchActionPerformed(evt);
-            }
-        });
-
-        lbSearch.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
-        lbSearch.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Google Web Search_1.png"))); // NOI18N
-        lbSearch.setText("SCR");
-        lbSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtFSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbSearch)
-                .addGap(28, 28, 28))
+            .addGap(0, 1220, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbSearch)
-                    .addComponent(txtFSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(0, 56, Short.MAX_VALUE)
         );
 
         lbNameCaffe.setFont(new java.awt.Font("Segoe UI Black", 1, 56)); // NOI18N
@@ -129,6 +208,7 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         lbDeskripsi.setText("DESKRIPSI");
         lbDeskripsi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(9, 64, 49));
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -140,15 +220,27 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         iconMaps.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMaps.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Google Maps_2.png"))); // NOI18N
+        iconMaps.setIcon(new javax.swing.ImageIcon("D:\\UAS PBO\\APPS-REKOMENDASI-TEMPAT-NGOPI\\src\\image\\Google Maps_2.png")); // NOI18N
         iconMaps.setText("mps");
         iconMaps.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         iconMaps.setIconTextGap(0);
         iconMaps.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconMaps.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconMapsMouseClicked(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("De Finibus Bonorum et Malorum");
+        txt_alamatlengkap.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        txt_alamatlengkap.setForeground(new java.awt.Color(255, 255, 255));
+        txt_alamatlengkap.setText("De Finibus Bonorum et Malorum");
+
+        btn_BalikAhh.setText("Balik ah....");
+        btn_BalikAhh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BalikAhhActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnDasarLayout = new javax.swing.GroupLayout(pnDasar);
         pnDasar.setLayout(pnDasarLayout);
@@ -158,23 +250,29 @@ public class User_InfoNgopi extends javax.swing.JFrame {
             .addGroup(pnDasarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNameCaffe, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbNameCaffe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnDasarLayout.createSequentialGroup()
                         .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDasarLayout.createSequentialGroup()
                                 .addComponent(iconMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_alamatlengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
                         .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnDasarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                                .addComponent(lbDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnDasarLayout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(jScrollPane1)))))
-                .addGap(39, 39, 39))
+                                .addGap(6, 6, 6)
+                                .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnDasarLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                                        .addComponent(lbDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnDasarLayout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jScrollPane1)))
+                                .addGap(39, 39, 39))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDasarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_BalikAhh)
+                                .addGap(101, 101, 101))))))
         );
         pnDasarLayout.setVerticalGroup(
             pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,12 +291,18 @@ public class User_InfoNgopi extends javax.swing.JFrame {
                         .addComponent(pnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(iconMaps))
-                    .addGroup(pnDasarLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGroup(pnDasarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnDasarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(iconMaps))
+                            .addGroup(pnDasarLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(txt_alamatlengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDasarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_BalikAhh)
+                        .addGap(67, 67, 67))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,9 +321,35 @@ public class User_InfoNgopi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFSearchActionPerformed
+    private void btn_BalikAhhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BalikAhhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFSearchActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_BalikAhhActionPerformed
+
+    private void iconMapsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMapsMouseClicked
+        // TODO add your handling code here:                                    
+        // Logika Klik Icon Maps -> Buka Browser
+        if (caffeSedangDilihat == null) return;
+        
+        String link = caffeSedangDilihat.getLinkMaps();
+        
+        if (link != null && !link.isEmpty()) {
+            try {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    Desktop.getDesktop().browse(new URI(link));
+                } else {
+                    JOptionPane.showMessageDialog(this, "Browser otomatis tidak didukung di sistem ini.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Gagal membuka link maps:\n" + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Link maps belum tersedia untuk kafe ini.");
+        }
+    
+       
+
+    }//GEN-LAST:event_iconMapsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -259,20 +389,17 @@ public class User_InfoNgopi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel blGambar;
+    private javax.swing.JButton btn_BalikAhh;
     private javax.swing.JLabel iconMaps;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbDeskripsi;
     private javax.swing.JLabel lbNameCaffe;
-    private javax.swing.JLabel lbSearch;
     private javax.swing.JPanel pnDasar;
     private javax.swing.JPanel pnGambar;
-    private javax.swing.JTextField txtFSearch;
+    private javax.swing.JLabel txt_alamatlengkap;
     // End of variables declaration//GEN-END:variables
 }
-
-
 
 

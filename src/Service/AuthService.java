@@ -19,9 +19,16 @@ public class AuthService {
             this.isAdmin = isAdmin;
         }
         
-        public String getUsername() { return username; }
-        public String getPassword() { return password; }
-        public boolean isAdmin() { return isAdmin; }
+        public String getUsername() {
+            return username; 
+        }
+        
+        public String getPassword(){
+            return password;
+        }
+        public boolean isAdmin(){
+            return isAdmin; 
+        }
     }
     
     private User currentUser;

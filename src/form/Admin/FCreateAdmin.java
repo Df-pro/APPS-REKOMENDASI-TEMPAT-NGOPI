@@ -77,7 +77,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private void displayImage(byte[] imgData) {
         try {
             ImageIcon icon = new ImageIcon(imgData);
-            int labelWidth = lib_gambar.getWidth() > 0 ? lib_gambar.getWidth() : 178;
+            int labelWidth = lib_gambar.getWidth() > 0 ? lib_gambar.getWidth() : 204;
             int labelHeight = lib_gambar.getHeight() > 0 ? lib_gambar.getHeight() : 177;
             
             Image scaledImg = icon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
@@ -106,11 +106,8 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         txtDaerah = new javax.swing.JLabel();
         txtNama = new javax.swing.JLabel();
         txtFNama = new javax.swing.JTextField();
-        txtFDeskripsi = new javax.swing.JTextField();
         txtDeskripsi = new javax.swing.JLabel();
-        txtFAlamat = new javax.swing.JTextField();
         txtAlamat = new javax.swing.JLabel();
-        txtFLinkMaps = new javax.swing.JTextField();
         txtLinkMaps = new javax.swing.JLabel();
         txtUnggahFoto = new javax.swing.JLabel();
         btnSimpan = new javax.swing.JButton();
@@ -118,6 +115,12 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         lib_gambar = new javax.swing.JLabel();
         btnGambar = new javax.swing.JButton();
         t_imagePath = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtFDeskripsi = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtFAlamat = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtFLinkMaps = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(1100, 614));
 
@@ -142,17 +145,11 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
 
         txtFNama.addActionListener(this::txtFNamaActionPerformed);
 
-        txtFDeskripsi.addActionListener(this::txtFDeskripsiActionPerformed);
-
         txtDeskripsi.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         txtDeskripsi.setText("Deskripsi");
 
-        txtFAlamat.addActionListener(this::txtFAlamatActionPerformed);
-
         txtAlamat.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         txtAlamat.setText("Alamat");
-
-        txtFLinkMaps.addActionListener(this::txtFLinkMapsActionPerformed);
 
         txtLinkMaps.setFont(new java.awt.Font("Segoe UI Semilight", 0, 16)); // NOI18N
         txtLinkMaps.setText("Link Maps");
@@ -178,6 +175,24 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
 
         t_imagePath.addActionListener(this::t_imagePathActionPerformed);
 
+        txtFDeskripsi.setColumns(20);
+        txtFDeskripsi.setLineWrap(true);
+        txtFDeskripsi.setRows(5);
+        txtFDeskripsi.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtFDeskripsi);
+
+        txtFAlamat.setColumns(20);
+        txtFAlamat.setLineWrap(true);
+        txtFAlamat.setRows(5);
+        txtFAlamat.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(txtFAlamat);
+
+        txtFLinkMaps.setColumns(20);
+        txtFLinkMaps.setLineWrap(true);
+        txtFLinkMaps.setRows(5);
+        txtFLinkMaps.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(txtFLinkMaps);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -185,45 +200,47 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(277, 277, 277)
-                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(373, 373, 373)
-                        .addComponent(jLabel1)))
-                .addContainerGap(457, Short.MAX_VALUE))
+                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLinkMaps, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(100, 100, 100)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtFKategori, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                        .addComponent(txtFDaerah)
+                        .addComponent(txtFNama)
+                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane2)))
+                .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDaerah, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtKategori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtAlamat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtLinkMaps, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(100, 100, 100)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFKategori, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
-                            .addComponent(txtFDaerah)
-                            .addComponent(txtFNama)
-                            .addComponent(txtFDeskripsi)
-                            .addComponent(txtFAlamat)
-                            .addComponent(txtFLinkMaps))
-                        .addGap(169, 169, 169)
                         .addComponent(txtUnggahFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(113, 113, 113))
+                        .addGap(51, 51, 51))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                        .addGap(82, 82, 82))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +248,16 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtUnggahFoto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(270, 270, 270))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtKategori)
@@ -244,32 +270,29 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNama)
                             .addComponent(txtFNama, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDeskripsi)
-                            .addComponent(txtFDeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAlamat)
-                            .addComponent(txtFAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(txtDeskripsi)
+                                .addGap(50, 50, 50))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtAlamat)
+                                .addGap(12, 12, 12)))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtLinkMaps)
-                            .addComponent(txtFLinkMaps, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtUnggahFoto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lib_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGambar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(270, 270, 270))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,13 +301,13 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -302,14 +325,6 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private void txtFNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFNamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFNamaActionPerformed
-
-    private void txtFAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFAlamatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFAlamatActionPerformed
-
-    private void txtFLinkMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFLinkMapsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFLinkMapsActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
             // TODO add your handling code here:                                         
@@ -386,7 +401,7 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
         txtFNama.setText("");
         txtFDeskripsi.setText("");
         txtFAlamat.setText("");
-        txtFLinkMaps.setText("");
+        txtFAlamat.setText("");
         
  
         t_imagePath.setText("");
@@ -445,10 +460,6 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     
     }//GEN-LAST:event_btnGambarActionPerformed
 
-    private void txtFDeskripsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFDeskripsiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFDeskripsiActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
@@ -456,16 +467,19 @@ public class FCreateAdmin extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lib_gambar;
     private javax.swing.JTextField t_imagePath;
     private javax.swing.JLabel txtAlamat;
     private javax.swing.JLabel txtDaerah;
     private javax.swing.JLabel txtDeskripsi;
-    private javax.swing.JTextField txtFAlamat;
+    private javax.swing.JTextArea txtFAlamat;
     private javax.swing.JTextField txtFDaerah;
-    private javax.swing.JTextField txtFDeskripsi;
+    private javax.swing.JTextArea txtFDeskripsi;
     private javax.swing.JTextField txtFKategori;
-    private javax.swing.JTextField txtFLinkMaps;
+    private javax.swing.JTextArea txtFLinkMaps;
     private javax.swing.JTextField txtFNama;
     private javax.swing.JLabel txtKategori;
     private javax.swing.JLabel txtLinkMaps;

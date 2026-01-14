@@ -7,6 +7,7 @@ import DAO.UserDAO;
 import Model.User;
 import form.Admin.DashboardAdmin;
 import form.user.User_InfoNgopi;
+import form.user.halaman_user;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.prefs.Preferences;
@@ -174,7 +175,7 @@ public class LoginForm extends javax.swing.JFrame {
                 adminDash.setVisible(true);
                 this.dispose();
             } else {
-                User_InfoNgopi userdash = new User_InfoNgopi();
+                halaman_user userdash = new halaman_user();
                 userdash.setVisible(true);
                 
             }

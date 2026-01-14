@@ -246,7 +246,7 @@ public class FEditAdmin extends javax.swing.JInternalFrame {
             java.awt.Dimension desktopSize = desktop.getSize();
             java.awt.Dimension frameSize = fEdit.getSize();
             fEdit.setLocation((desktopSize.width - frameSize.width)/3, 
-                              (desktopSize.height - frameSize.height)/2);
+                              (desktopSize.height - frameSize.height)/4);
             fEdit.setVisible(true);
             //fEdit.toFront();
             

@@ -323,25 +323,33 @@ public class User_InfoNgopi extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_BalikAhhActionPerformed
 
     private void iconMapsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMapsMouseClicked
-        // TODO add your handling code here:                                    
-        // Logika Klik Icon Maps -> Buka Browser
-        if (caffeSedangDilihat == null) return;
-        
+        // TODO add your handling code here:     
+        if (caffeSedangDilihat == null) {
+            JOptionPane.showMessageDialog(this, "Error: Data kafe tidak dimuat.");
+            return;
+        }
         String link = caffeSedangDilihat.getLinkMaps();
-        
-        if (link != null && !link.isEmpty()) {
+        System.out.println("Mencoba membuka link: " + link);
+        if (link != null && !link.trim().isEmpty()) {
             try {
-                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                    Desktop.getDesktop().browse(new URI(link));
-                } else {
-                    JOptionPane.showMessageDialog(this, "Browser otomatis tidak didukung di sistem ini.");
+                if (!link.startsWith("http://") && !link.startsWith("https://")) {
+                    link = "https://" + link;
                 }
+                URI uri = new URI(link);
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    Desktop.getDesktop().browse(uri);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Sistem operasi tidak mendukung pembukaan browser otomatis.");
+                }
+                
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Gagal membuka link maps:\n" + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Link Maps rusak/tidak valid:\n" + link + "\nError: " + e.getMessage());
+                e.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Link maps belum tersedia untuk kafe ini.");
+            JOptionPane.showMessageDialog(this, "Link Google Maps belum tersedia untuk tempat ini (Data Kosong).");
         }
+    
     
        
 
@@ -397,5 +405,4 @@ public class User_InfoNgopi extends javax.swing.JFrame {
     private javax.swing.JLabel txt_alamatlengkap;
     // End of variables declaration//GEN-END:variables
 }
-
 
